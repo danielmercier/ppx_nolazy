@@ -1,0 +1,5 @@
+(library
+   (name ppx_nolazy)
+   (public_name ppx_nolazy)
+   (kind ppx_rewriter)
+   (libraries ppxlib))
