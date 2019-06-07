@@ -43,3 +43,12 @@ let f3 expr =
       raise Not_found
 
 let () = ignore (f3 [expr])
+
+let f4 expr =
+  match%nolazy (expr :> expr option) with
+  | Some (`UnOp {op= `OpMinus; expr= `UnOp {op= `OpMinus; expr= unop_expr}}) ->
+      Some unop_expr
+  | _ ->
+      expr
+
+let () = ignore (f4 (Some expr))

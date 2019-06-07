@@ -21,6 +21,8 @@ let rec rewrite_pattern pattern =
       ppat_variant ~loc label
         (Some
            (ppat_record ~loc:ppat_loc (List.map aux ident_pat_list) closed_flag))
+  | Ppat_variant (label, Some pattern) ->
+      ppat_variant ~loc label (Some (rewrite_pattern pattern))
   | Ppat_array patterns ->
       ppat_array ~loc:pattern.ppat_loc (List.map rewrite_pattern patterns)
   | Ppat_or (pat1, pat2) ->
