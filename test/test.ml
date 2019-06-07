@@ -32,3 +32,14 @@ let expr =
 let () =
   ignore (f1 expr) ;
   ignore (f2 expr)
+
+let f3 expr =
+  match%nolazy (expr :> expr list) with
+  | [`UnOp {op= `OpMinus; expr= `UnOp {op= `OpMinus; expr= unop_expr}}] ->
+      unop_expr
+  | e :: _ ->
+      e
+  | [] ->
+      raise Not_found
+
+let () = ignore (f3 [expr])
