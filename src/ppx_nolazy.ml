@@ -4,6 +4,8 @@ open Ast_builder.Default
 let rec rewrite_pattern pattern =
   let loc = pattern.ppat_loc in
   match pattern.ppat_desc with
+  | Ppat_alias (pattern, alias) ->
+      ppat_alias ~loc (rewrite_pattern pattern) alias
   | Ppat_tuple patterns ->
       ppat_tuple ~loc (List.map rewrite_pattern patterns)
   | Ppat_construct (ident_loc, Some pattern) ->
